@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Monster Slayer</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+	<div id="app">
+		<section class="row">
+			<div class="small-6 columns">
+				<h1 class="text-center">YOU</h1>
+				<p class="text-center">Level {{ playerLevel }}</p>
+				<div class="levelbar">
+					<div 
+            class="levelbar text-center" 
+            style="background-color: blue; margin: 0; color: white;"
+						:style="{width: playerExpPercent + '%'}"></div>
+				</div>
+				<div class="healthbar">
+					<div 
+            class="healthbar text-center" 
+            style="background-color: red; margin: 0; color: white;"
+						:style="{width: playerHealthPercent + '%'}">
+						{{ playerHealth }}
+					</div>
+				</div>
+				<div class="staminabar">
+					<div 
+            class="staminabar text-center" 
+            style="background-color: green; margin: 0; color: white;"
+						:style="{width: playerStaminaPercent + '%'}">
+						{{ playerStamina }}
+					</div>
+				</div>
+			</div>
+			<div class="small-6 columns">
+				<h1 class="text-center">MONSTER</h1>
+				<p class="text-center">Level {{ monsterLevel }}</p>
+				<div class="levelbar">
+					<div 
+            class="levelbar text-center" 
+            style="background-color: blue; margin: 0; color: white;"
+						:style="{width: monsterExpPercent + '%'}"></div>
+				</div>
+				<div class="healthbar">
+					<div 
+            class="healthbar text-center" 
+            style="background-color: red; margin: 0; color: white;"
+						:style="{width: monsterHealthPercent + '%'}">
+						{{ monsterHealth }}
+					</div>
+				</div>
+				<div class="staminabar">
+					<div 
+            class="staminabar text-center" 
+            style="background-color: green; margin: 0; color: white;"
+						:style="{width: monsterStaminaPercent + '%'}">
+						{{ monsterStamina }}
+					</div>
+				</div>
+			</div>
+		</section>
+		<section class="row controls" v-if="!gameIsRunning">
+			<div class="small-12 columns">
+				<button id="start-game" @click="startGame">START NEW GAME</button>
+			</div>
+		</section>
+		<section class="row controls" v-else>
+			<div class="small-12 columns">
+				<button id="attack" @click="attack">ATTACK</button>
+				<button id="special-attack" @click="specialAttack">SPECIAL ATTACK</button>
+				<button id="heal" @click="heal">HEAL</button>
+				<button id="give-up" @click="giveUp">GIVE UP</button>
+			</div>
+		</section>
+		<section class="row log" v-if="turns.length > 0">
+			<div class="small-12 columns">
+				<ul>
+					<li v-for="turn in turns" :class="{'player-turn': turn.isPlayer, 'monster-turn': !turn.isPlayer}">
+						{{ turn.text }}
+					</li>
+				</ul>
+			</div>
+		</section>
+	</div>
+</body>
+
+</html>
